@@ -508,6 +508,7 @@ def replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored(lst: list[
 
 def test_replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored():
     assert replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored([-76, 12, 24, -13, 144]) == [-67, 12, 12, -31, 12]
+    assert replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored([-765, -12, 24, -13, 144]) == [-567, -21, 24, -31, 24]
 
 
 def ui_process_replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored(lst: list[int]):
