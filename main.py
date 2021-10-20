@@ -506,6 +506,10 @@ def replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored(lst: list[
     return list_with_positives_replaced_by_gcd_and_nonpositives_replaced_by_mirrored
 
 
+def test_replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored():
+    assert replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored([-76, 12, 24, -13, 144]) == [-67, 12, 12, -31, 12]
+
+
 def ui_process_replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored(lst: list[int]):
     """
     Displays a list based on the given list, where the positive numbers in the given list have been replaced by their
@@ -604,7 +608,7 @@ def run_tests():
     test_gcd_list()
     test_replace_positive_numbers_by_their_gcd()
     test_replace_nonpositive_numbers_by_their_mirror_images()
-
+    test_replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored()
 
     print("[TESTS] All tests PASSED!!")
 
