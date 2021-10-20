@@ -1,6 +1,121 @@
 from typing import Optional
 
-def is_prime(n):
+
+def gcd2(x: int, y: int) -> int:
+    """
+    Finds the greatest common divisor of two numbers.
+
+    Parameters
+    ----------
+    x, y: int
+        The two numbers whose GCD we are trying to find.
+
+    Returns
+    -------
+    int:
+        The GCD of x and y.
+    """
+    # we use Euclid's subtraction-based algorithm
+    # if the two numbers are the same, their GCD is their common value
+    if x == y:
+        return x
+
+    # if the two numbers are distinct, we call recursively, changing only the
+    # largest's value by subtracting the lower one from it
+    if x > y:
+        return gcd2(x - y, y)
+    else:
+        return gcd2(x, y - x)
+
+
+def test_gcd2():
+    assert gcd2(1, 2) == 1
+    assert gcd2(2, 100) == 2
+    assert gcd2(90, 30) == 30
+    assert gcd2(7, 9) == 1
+
+
+def gcd_list(lst: list[int]) -> int:
+    """
+    Finds the GCD of all the numbers in a given list of integers.
+
+    Parameters
+    ----------
+    lst : list[int]
+        The list containing the numbers whose GCD we are trying to find.
+
+    Returns
+    -------
+    int:
+        The GCD of all the numbers in the given list.
+
+    """
+
+    if len(lst) == 1:
+        return lst[0]
+
+    # we use the fact that gcd(a0,a2,...,an) = gcd(gcd(a0,..,a(n-1)), an)
+    return gcd2(lst[-1], gcd_list(lst[:-1]))
+
+
+def replace_positive_numbers_by_their_gcd(lst: list[int]) -> list[int]:
+    """
+
+
+    Parameters
+    ----------
+    lst
+
+    Returns
+    -------
+
+    """
+
+    positive_numbers = find_positive_integers(lst)
+    gcd_of_positive_numbers = gcd_list(positive_numbers)
+    result = []
+    for element in lst:
+        if element > 0:
+            result.append(gcd_of_positive_numbers)
+        else:
+            result.append(element)
+
+    return result
+
+
+def replace_nonpositive_numbers_by_their_mirror_image(lst: list[int]) -> list[int]:
+    """
+
+    Parameters
+    ----------
+    lst
+
+    Returns
+    -------
+
+    """
+    result = []
+    for element in lst:
+        if element <= 0:
+            # mirror the element
+            mirrored_modulus = int(str(-element)[::-1])
+            result.append(-mirrored_modulus)
+        else:
+            result.append(element)
+
+    return result
+
+
+def test_gcd_list():
+    assert gcd_list([1, 2]) == 1
+    assert gcd_list([2, 100]) == 2
+    assert gcd_list([90, 30]) == 30
+    assert gcd_list([7, 9]) == 1
+    assert gcd_list([20, 10, 100, 15]) == 5
+    assert gcd_list([2, 3, 7, 9]) == 1
+
+
+def is_prime(n: int) -> bool:
     """
     NOTE: This function was imported from my Lab2 homework. It was tested there.
     Tests whether an integer is a prime number.
@@ -182,10 +297,34 @@ def test_find_smallest_number_in_list():
     assert find_smallest_number_in_list([1000000]) == 1000000
     assert find_smallest_number_in_list([]) is None
 
+
 def test_find_numbers_with_given_last_digit():
     assert find_numbers_with_given_last_digit(9, [1, 9, 29, 10, 5, 199]) == [9, 29, 199]
     assert find_numbers_with_given_last_digit(7, [1, 9, 29, 10, 5, 199]) == []
     assert find_numbers_with_given_last_digit(0, [10, 0, 100, 200, 51410]) == [10, 0, 100, 200, 51410]
+
+
+def find_positive_integers(lst: list[int]) -> list[int]:
+    """
+    Finds negative numbers in the given list and returns them in a new list.
+
+    Parameters
+    ----------
+    lst : list[int]
+        The list in which we are looking for negative numbers.
+
+    Returns
+    -------
+    list[int]
+        The negative numbers found in the given list.
+
+    """
+    positive_numbers = []
+    for element in lst:
+        if element > 0:
+            positive_numbers.append(element)
+
+    return positive_numbers
 
 
 def find_negative_integers(lst: list[int]) -> list[int]:
@@ -211,10 +350,16 @@ def find_negative_integers(lst: list[int]) -> list[int]:
     return negative_numbers
 
 
-def test_find_negative_numbers():
+def test_find_negative_integers():
     assert find_negative_integers([1, 2, -1, -2]) == [-1, -2]
     assert find_negative_integers([1, 2, 3]) == []
     assert find_negative_integers([-5000, -100]) == [-5000, -100]
+
+
+def test_find_positive_integers():
+    assert find_positive_integers([1, 2, -1, -2]) == [1, 2]
+    assert find_positive_integers([1, 2, 3]) == [1, 2, 3]
+    assert find_positive_integers([-5000, -100]) == []
 
 
 def ui_process_read_list() -> list[int]:
@@ -299,6 +444,23 @@ def ui_process_find_all_superprimes(lst: list[int]):
     ui_process_display_list(superprimes)
 
 
+def ui_process_replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored(lst: list[int]):
+    """
+
+    Parameters
+    ----------
+    lst
+
+    Returns
+    -------
+
+    """
+    list_with_positives_replaced_by_gcd = replace_positive_numbers_by_their_gcd(lst)
+    list_with_positives_replaced_by_gcd_and_nonpositives_replaced_by_mirrored = \
+        replace_nonpositive_numbers_by_their_mirror_image(list_with_positives_replaced_by_gcd)
+    print(list_with_positives_replaced_by_gcd_and_nonpositives_replaced_by_mirrored)
+
+
 def ui_process_command(command: int, lst: list[int]) -> (list[int], bool):
     """
     Receives a command number and processes it, eventually using the list lst.
@@ -334,6 +496,8 @@ def ui_process_command(command: int, lst: list[int]) -> (list[int], bool):
         ui_process_find_smallest_number_having_given_last_digit(lst)
     elif command == 5:
         ui_process_find_all_superprimes(lst)
+    elif command == 6:
+        ui_process_replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored(lst)
     else:
         print("Invalid command. Please try again.")
 
@@ -365,13 +529,17 @@ def ui_show_menu():
 
 
 def run_tests():
-    test_find_negative_numbers()
+    test_find_negative_integers()
+    test_find_positive_integers()
     test_find_numbers_with_given_last_digit()
     test_find_smallest_number_in_list()
     test_find_smallest_number_having_given_last_digit()
     test_is_superprime()
     test_find_all_superprimes()
-    pass
+    test_gcd2()
+    test_gcd_list()
+
+    print("[TESTS] All tests PASSED!!")
 
 
 def main():
