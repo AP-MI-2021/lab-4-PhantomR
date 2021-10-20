@@ -485,6 +485,27 @@ def ui_process_find_all_superprimes(lst: list[int]):
     ui_process_display_list(superprimes)
 
 
+def replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored(lst: list[int]) -> list[int]:
+    """
+    Creates list based on the given list, where the positive numbers in the given list have been replaced by their
+    GCD and nonpositives have been replaced by their mirror images.
+    Parameters
+    ----------
+    lst : list[int]
+        The original list.
+
+    Returns
+    -------
+    list[int]:
+        A list obtained from the given list, having the required replacements.
+
+    """
+    list_with_positives_replaced_by_gcd = replace_positive_numbers_by_their_gcd(lst)
+    list_with_positives_replaced_by_gcd_and_nonpositives_replaced_by_mirrored = \
+        replace_nonpositive_numbers_by_their_mirror_image(list_with_positives_replaced_by_gcd)
+    return list_with_positives_replaced_by_gcd_and_nonpositives_replaced_by_mirrored
+
+
 def ui_process_replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored(lst: list[int]):
     """
     Displays a list based on the given list, where the positive numbers in the given list have been replaced by their
@@ -495,10 +516,8 @@ def ui_process_replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored
     lst : list[int]
         The source list.
     """
-    list_with_positives_replaced_by_gcd = replace_positive_numbers_by_their_gcd(lst)
-    list_with_positives_replaced_by_gcd_and_nonpositives_replaced_by_mirrored = \
-        replace_nonpositive_numbers_by_their_mirror_image(list_with_positives_replaced_by_gcd)
-    ui_process_display_list(list_with_positives_replaced_by_gcd_and_nonpositives_replaced_by_mirrored)
+    result = replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored(lst)
+    ui_process_display_list(result)
 
 
 def ui_process_command(command: int, lst: list[int]) -> (list[int], bool):
@@ -564,6 +583,8 @@ def ui_show_menu():
     print("3. Find negative numbers in the list")
     print("4. Find the smallest number in the list having a given last digit")
     print("5. Find all superprimes in the list")
+    print("6. Compute a list from the given list such that the positive numbers are replaced by their GCD and the "
+          "nonpositives are replaced by their mirror images")
     print("--------------------")
     print("0. EXIT")
 
