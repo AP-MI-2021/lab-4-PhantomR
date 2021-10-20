@@ -60,14 +60,17 @@ def gcd_list(lst: list[int]) -> int:
 
 def replace_positive_numbers_by_their_gcd(lst: list[int]) -> list[int]:
     """
-
+    Returns a list where  all positive numbers in the given list have been replaced by their GCD.
 
     Parameters
     ----------
-    lst
+    lst : list[int]
+        The list we are processing.
 
     Returns
     -------
+    list[int]:
+        A copy of the given list where all positive numbers have beeen replaced by their GCD.
 
     """
 
@@ -83,15 +86,24 @@ def replace_positive_numbers_by_their_gcd(lst: list[int]) -> list[int]:
     return result
 
 
+def test_replace_positive_numbers_by_their_gcd():
+    assert replace_positive_numbers_by_their_gcd([1, 2, 3]) == [1, 1, 1]
+    assert replace_positive_numbers_by_their_gcd([-1, -2, 100, 200, -5, 15]) == [-1, -2, 5, 5, -5, 5]
+
+
 def replace_nonpositive_numbers_by_their_mirror_image(lst: list[int]) -> list[int]:
     """
+    Returns a list where  all nonpositive numbers in the given list have been replaced by their mirror images.
 
     Parameters
     ----------
-    lst
+    lst : list[int]
+        The list we are processing.
 
     Returns
     -------
+    list[int]:
+        A copy of the given list where all nonpositive numbers have beeen replaced by their mirror images.
 
     """
     result = []
@@ -106,7 +118,15 @@ def replace_nonpositive_numbers_by_their_mirror_image(lst: list[int]) -> list[in
     return result
 
 
+def test_replace_nonpositive_numbers_by_their_mirror_images():
+    assert replace_nonpositive_numbers_by_their_mirror_image([-1, -2, 0, 1, 2, 3]) == [-1, -2, 0, 1, 2,3]
+    assert replace_nonpositive_numbers_by_their_mirror_image([-76, -2, 0, 100, 237, -34]) == [-67, -2, 0, 100, 237, -43]
+
+
 def test_gcd_list():
+    """
+    Tests the gcd_list(list[int]) function.
+    """
     assert gcd_list([1, 2]) == 1
     assert gcd_list([2, 100]) == 2
     assert gcd_list([90, 30]) == 30
@@ -198,6 +218,9 @@ def find_all_superprimes(lst: list[int]) -> list[int]:
 
 
 def test_find_all_superprimes():
+    """
+    Tests the find_all_superprimes(list[int]) function.
+    """
     assert find_all_superprimes([1, 2, 3]) == [2, 3]
     assert find_all_superprimes([173, 239, 173, 239, 100, 200, 5]) == [239, 239,5]
     assert find_all_superprimes([5]) == [5]
@@ -206,6 +229,9 @@ def test_find_all_superprimes():
 
 
 def test_is_superprime():
+    """
+    Tests the is_superprime(int) function.
+    """
     assert not is_superprime(173)
     assert is_superprime(239)
     assert is_superprime(5)
@@ -286,12 +312,18 @@ def find_smallest_number_having_given_last_digit(digit: int, lst: list[int]) -> 
 
 
 def test_find_smallest_number_having_given_last_digit():
+    """
+    Tests the find_smallest_number_having_given_last_digit(int, list[int]) function.
+    """
     assert find_smallest_number_having_given_last_digit(9, [1, 9, 29, 10, 5, 199]) == 9
     assert find_smallest_number_having_given_last_digit(7, [1, 9, 29, 10, 5, 199]) is None
     assert find_smallest_number_having_given_last_digit(0, [10, 0, 100, 200, 51410]) == 0
 
 
 def test_find_smallest_number_in_list():
+    """
+    Tests the find_smallest_number_in_list(list[int]) function.
+    """
     assert find_smallest_number_in_list([1, 2, -5, 1000]) == -5
     assert find_smallest_number_in_list([100, 200, 5, 50, 2]) == 2
     assert find_smallest_number_in_list([1000000]) == 1000000
@@ -299,6 +331,9 @@ def test_find_smallest_number_in_list():
 
 
 def test_find_numbers_with_given_last_digit():
+    """
+    Tests the find_numbers_with_given_last_digit(int, list[int]) function.
+    """
     assert find_numbers_with_given_last_digit(9, [1, 9, 29, 10, 5, 199]) == [9, 29, 199]
     assert find_numbers_with_given_last_digit(7, [1, 9, 29, 10, 5, 199]) == []
     assert find_numbers_with_given_last_digit(0, [10, 0, 100, 200, 51410]) == [10, 0, 100, 200, 51410]
@@ -306,17 +341,17 @@ def test_find_numbers_with_given_last_digit():
 
 def find_positive_integers(lst: list[int]) -> list[int]:
     """
-    Finds negative numbers in the given list and returns them in a new list.
+    Finds positive numbers in the given list and returns them in a new list.
 
     Parameters
     ----------
     lst : list[int]
-        The list in which we are looking for negative numbers.
+        The list in which we are looking for positive numbers.
 
     Returns
     -------
     list[int]
-        The negative numbers found in the given list.
+        The positive numbers found in the given list.
 
     """
     positive_numbers = []
@@ -351,12 +386,18 @@ def find_negative_integers(lst: list[int]) -> list[int]:
 
 
 def test_find_negative_integers():
+    """
+    Tests the find_negative_integers(list[int]) function.
+    """
     assert find_negative_integers([1, 2, -1, -2]) == [-1, -2]
     assert find_negative_integers([1, 2, 3]) == []
     assert find_negative_integers([-5000, -100]) == [-5000, -100]
 
 
 def test_find_positive_integers():
+    """
+    Tests the find_positive_integers(list[int]) function.
+    """
     assert find_positive_integers([1, 2, -1, -2]) == [1, 2]
     assert find_positive_integers([1, 2, 3]) == [1, 2, 3]
     assert find_positive_integers([-5000, -100]) == []
@@ -446,19 +487,18 @@ def ui_process_find_all_superprimes(lst: list[int]):
 
 def ui_process_replace_positives_by_their_gcd_and_nonpositives_by_their_mirrored(lst: list[int]):
     """
+    Displays a list based on the given list, where the positive numbers in the given list have been replaced by their
+    GCD and nonpositives have been replaced by their mirror images.
 
     Parameters
     ----------
-    lst
-
-    Returns
-    -------
-
+    lst : list[int]
+        The source list.
     """
     list_with_positives_replaced_by_gcd = replace_positive_numbers_by_their_gcd(lst)
     list_with_positives_replaced_by_gcd_and_nonpositives_replaced_by_mirrored = \
         replace_nonpositive_numbers_by_their_mirror_image(list_with_positives_replaced_by_gcd)
-    print(list_with_positives_replaced_by_gcd_and_nonpositives_replaced_by_mirrored)
+    ui_process_display_list(list_with_positives_replaced_by_gcd_and_nonpositives_replaced_by_mirrored)
 
 
 def ui_process_command(command: int, lst: list[int]) -> (list[int], bool):
@@ -529,6 +569,9 @@ def ui_show_menu():
 
 
 def run_tests():
+    """
+    Runs all tests.
+    """
     test_find_negative_integers()
     test_find_positive_integers()
     test_find_numbers_with_given_last_digit()
@@ -538,6 +581,9 @@ def run_tests():
     test_find_all_superprimes()
     test_gcd2()
     test_gcd_list()
+    test_replace_positive_numbers_by_their_gcd()
+    test_replace_nonpositive_numbers_by_their_mirror_images()
+
 
     print("[TESTS] All tests PASSED!!")
 
